@@ -76,6 +76,11 @@ e.x, 00_hoge.el, 01_huga.el ... 99_keybind.el"
   :group 'init-loader
   :type 'regexp)
 
+(defcustom init-loader-linux-regexp "^linux-"
+  "linux環境での起動時に読み込まれる設定ファイルにマッチする正規表現"
+  :group 'init-loader
+  :type 'regexp)
+
 (defcustom init-loader-nw-regexp "^nw-"
   "no-window環境での起動時に読み込まれる設定ファイルにマッチする正規表現"
   :group 'init-loader
@@ -95,6 +100,9 @@ e.x, 00_hoge.el, 01_huga.el ... 99_keybind.el"
     ;; cocoa emacs
     (and (equal window-system 'ns)
          (init-loader-re-load init-loader-cocoa-emacs-regexp init-dir))
+    ;; linux
+    (and (equal system-type 'gnu/linux)
+         (init-loader-re-load init-loader-linux-regexp init-dir))
     ;; no window
     (and (null window-system)
          (init-loader-re-load init-loader-nw-regexp init-dir))
